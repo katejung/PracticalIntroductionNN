@@ -102,7 +102,8 @@ def normalize(x):
 	"""
 	x_normalized = np.zeros(x.shape)
 	for i, x in enumerate(x):
-		x_normalized[i,:] = (x-min(x))/float(max(x)-min(x))
+		# x_normalized[i,:] = (x-min(x))/float(max(x)-min(x))
+		x_normalized[i,:] = x/255.0
 	return x_normalized
 
 #Step 7: define a function that does one hot encoding on input
