@@ -3,6 +3,7 @@ HW2/cifar-preprocessed/
 HW2/cifar-10-batches-py/
 HW2/dogs-vs-cats-preprocessed/
 HW2/dogs-vs-cats/
+HW2/MNIST_data/
 ######## Files ########
 *.ipynb_checkpoints
 *.jpg
