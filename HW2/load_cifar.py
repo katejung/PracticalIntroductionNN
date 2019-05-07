@@ -138,7 +138,7 @@ def preprocess_data(folder_path):
 	"""
 	batch_ids = np.arange(1,6)
 	features_valid_all,labels_valid_all = np.empty((0, 3072)),[]
-	for i, batch_id in enumerate([1]):
+	for i, batch_id in enumerate(batch_ids):
 		features, labels = load_training_batch(folder_path,batch_id)
 		batch_size = features.shape[0]
 		# training_samples = np.arange(batch_size)
@@ -150,11 +150,10 @@ def preprocess_data(folder_path):
 		labels_valid = labels[train_size:]
 
 		features_valid_all = np.concatenate([features_valid_all, features_valid])
-		labels_valid_all.append(labels_valid)
-
-		preprocess_and_save(features_train, labels_train, 'batch_train_'+str(i+1))
-
-	preprocess_and_save(features_valid_all, np.array(labels_valid_all), 'batch_valid')
+		labels_valid_all.extend(labels_valid)
+	labels_valid_all = np.array(labels_valid_all)
+	preprocess_and_save(features_train, labels_train, 'batch_train_'+str(i+1))
+	preprocess_and_save(features_valid_all, labels_valid_all, 'batch_valid')
 	features_test, labels_test = load_testing_batch(folder_path)
 	preprocess_and_save(features_test, labels_test, 'batch_test')
 #Step 10: define a function to yield mini_batch
