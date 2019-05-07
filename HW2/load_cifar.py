@@ -65,7 +65,7 @@ def features_reshape(features):
 	Return:
 		features: a numpy array with shape (10000,32,32,3)
 	"""
-	refeatures_reshaped = features.reshape([-1, 3, 32, 32]).transpose([0, 2, 3, 1]).astype("uint8")
+	refeatures_reshaped = features.reshape([-1, 3, 32, 32]).transpose([0, 2, 3, 1])
 	return refeatures_reshaped
 
 #Step 5 (Optional): A function to display the stats of specific batch data.
@@ -102,7 +102,7 @@ def normalize(x):
 	"""
 	x_normalized = np.zeros(x.shape)
 	for i, x in enumerate(x):
-		x_normalized[i,:] = (x-min(x))/(max(x)-min(x))
+		x_normalized[i,:] = (x-min(x))/float(max(x)-min(x))
 	return x_normalized
 
 #Step 7: define a function that does one hot encoding on input
@@ -148,11 +148,10 @@ def preprocess_data(folder_path):
 		labels_train  = labels[:train_size]
 		features_valid = features[train_size:,:]
 		labels_valid = labels[train_size:]
-
+		preprocess_and_save(features_train, labels_train, 'batch_train_' + str(i+1))
 		features_valid_all = np.concatenate([features_valid_all, features_valid])
 		labels_valid_all.extend(labels_valid)
 	labels_valid_all = np.array(labels_valid_all)
-	preprocess_and_save(features_train, labels_train, 'batch_train_'+str(i+1))
 	preprocess_and_save(features_valid_all, labels_valid_all, 'batch_valid')
 	features_test, labels_test = load_testing_batch(folder_path)
 	preprocess_and_save(features_test, labels_test, 'batch_test')
